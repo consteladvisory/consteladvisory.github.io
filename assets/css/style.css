@@ -1,1 +1,576 @@
 
+<style>
+:root{
+--primary:#05070f;
+--secondary:#0f172a;
+--accent:#d4af37;
+--glass:rgba(255,255,255,0.05);
+--border:rgba(255,255,255,0.08);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+
+body{
+font-family:'Inter',sans-serif;
+background:radial-gradient(circle at top left,#111827 0%,#05070f 50%);
+color:white;
+overflow-x:hidden;
+line-height:1.7;
+}
+
+/* Animated ambient background */
+body::before,
+body::after{
+content:'';
+position:fixed;
+width:700px;
+height:700px;
+border-radius:50%;
+filter:blur(120px);
+pointer-events:none;
+z-index:0;
+animation:floatGlow 12s ease-in-out infinite alternate;
+}
+
+body::before{
+background:rgba(212,175,55,0.10);
+top:-250px;
+left:-150px;
+}
+
+body::after{
+background:rgba(255,255,255,0.05);
+bottom:-250px;
+right:-150px;
+animation-delay:4s;
+}
+
+@keyframes floatGlow{
+from{transform:translateY(0) translateX(0)}
+to{transform:translateY(40px) translateX(30px)}
+}
+
+.top-banner{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+background:#d4af37;
+color:#000;
+padding:8px 0;
+font-weight:600;
+overflow:hidden;
+white-space:nowrap;
+z-index:1200;
+}
+
+.banner-track{
+display:inline-block;
+padding-left:100%;
+animation:marquee 24s linear infinite;
+}
+
+@keyframes marquee{
+0%{transform:translateX(0)}
+100%{transform:translateX(-100%)}
+}
+
+header{
+position:fixed;
+top:38px;
+width:100%;
+padding:18px 70px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(5,7,15,0.68);
+backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(255,255,255,0.05);
+z-index:1100;
+}
+
+.logo-wrapper{
+    display:flex;
+    align-items:center;
+    text-decoration:none;
+}
+
+.logo-img{
+    height:60px;
+    width:auto;
+    display:block;
+}
+
+.logo-text{
+font-family:'Playfair Display';
+font-size:26px;
+letter-spacing:3px;
+background:linear-gradient(90deg,#fff,#d4af37);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+nav a{
+margin-left:28px;
+color:#bdbdbd;
+text-decoration:none;
+font-size:14px;
+letter-spacing:1px;
+transition:.3s;
+position:relative;
+}
+
+nav a::after{
+content:'';
+position:absolute;
+left:0;
+bottom:-6px;
+width:0;
+height:1px;
+background:#d4af37;
+transition:.3s;
+}
+
+nav a:hover{
+color:var(--accent);
+text-shadow:0 0 18px rgba(212,175,55,.6);
+}
+
+nav a:hover::after{width:100%}
+
+/* Hamburger Menu Elements */
+.menu-btn {
+display:none;
+flex-direction:column;
+justify-content:space-between;
+width:30px;
+height:21px;
+cursor:pointer;
+z-index:1300;
+}
+
+.menu-btn span {
+width:100%;
+height:3px;
+background-color:white;
+border-radius:2px;
+transition:all 0.3s ease;
+}
+
+#menu-toggle {
+display:none;
+}
+
+section{
+padding:130px 80px;
+position:relative;
+z-index:1;
+}
+
+.hero{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding-top:240px;
+}
+
+.main-title{
+font-size:88px;
+font-family:'Playfair Display';
+letter-spacing:5px;
+line-height:1.1;
+background:linear-gradient(90deg,#ffffff,#d4af37);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.main-tagline{
+margin-top:18px;
+font-size:18px;
+letter-spacing:5px;
+opacity:.7;
+text-transform:uppercase;
+}
+
+.hero-divider{
+width:140px;
+height:1px;
+background:linear-gradient(90deg,transparent,#d4af37,transparent);
+margin:34px auto;
+}
+
+.cta{
+padding:16px 38px;
+border-radius:50px;
+border:1px solid rgba(255,255,255,0.15);
+background:rgba(255,255,255,0.04);
+color:white;
+font-weight:600;
+letter-spacing:1px;
+cursor:pointer;
+transition:.4s;
+backdrop-filter:blur(10px);
+}
+
+.cta:hover{
+transform:translateY(-6px) scale(1.03);
+box-shadow:0 0 35px rgba(212,175,55,.35);
+background:rgba(255,255,255,0.08);
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:36px;
+max-width:1250px;
+margin:70px auto 0;
+}
+
+.card{
+position:relative;
+cursor:pointer;
+padding:34px;
+background:linear-gradient(145deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02));
+border:1px solid var(--border);
+border-radius:28px;
+backdrop-filter:blur(14px);
+overflow:hidden;
+transition:.45s cubic-bezier(.22,1,.36,1);
+}
+
+.card::before{
+content:'';
+position:absolute;
+inset:0;
+background:linear-gradient(135deg,rgba(212,175,55,.12),transparent 45%);
+opacity:0;
+transition:.4s;
+}
+
+.card:hover::before{opacity:1}
+
+.card:hover{
+transform:translateY(-10px);
+border-color:rgba(212,175,55,.45);
+box-shadow:0 25px 60px rgba(0,0,0,.55),0 0 35px rgba(212,175,55,.12);
+}
+
+.card h3{
+color:var(--accent);
+font-size:20px;
+margin-bottom:16px;
+font-family:'Playfair Display';
+}
+
+.card-content{
+max-height:120px;
+overflow:hidden;
+transition:max-height .5s ease;
+}
+
+.card.expanded .card-content{
+max-height:1200px;
+}
+
+.card p{
+font-size:15px;
+opacity:.86;
+line-height:1.9;
+}
+
+.section-title{
+font-family:'Playfair Display';
+font-size:56px;
+text-align:center;
+margin-bottom:22px;
+}
+
+.subtext{
+max-width:900px;
+margin:auto;
+text-align:center;
+opacity:.78;
+font-size:16px;
+line-height:1.9;
+}
+
+.contact-box{
+max-width:760px;
+margin:60px auto 0;
+padding:42px;
+background:linear-gradient(145deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02));
+border:1px solid var(--border);
+border-radius:28px;
+backdrop-filter:blur(14px);
+}
+
+input,textarea{
+width:100%;
+padding:16px;
+margin-top:16px;
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.06);
+border-radius:14px;
+color:white;
+font-size:15px;
+transition:.3s;
+}
+
+input:focus,textarea:focus{
+outline:none;
+border-color:rgba(212,175,55,.5);
+box-shadow:0 0 18px rgba(212,175,55,.15);
+}
+
+button.submit{
+margin-top:18px;
+width:100%;
+padding:16px;
+background:linear-gradient(90deg,#d4af37,#f3d36d);
+border:none;
+border-radius:16px;
+font-weight:700;
+cursor:pointer;
+transition:.3s;
+}
+
+button.submit:hover{
+transform:translateY(-3px);
+box-shadow:0 0 25px rgba(212,175,55,.35);
+}
+
+/* Floating WhatsApp Badge with interactive layout */
+.whatsapp-float{
+position:fixed;
+bottom:24px;
+right:24px;
+background:#25D366;
+color:white;
+text-decoration:none;
+font-weight:600;
+font-size:15px;
+display:flex;
+align-items:center;
+gap:10px;
+padding:12px 22px;
+border-radius:50px;
+box-shadow:0 10px 25px rgba(37,211,102,.4);
+transition:.3s cubic-bezier(.175,.885,.32,1.275);
+z-index:1200;
+}
+
+.whatsapp-float i {
+font-size:22px;
+}
+
+.whatsapp-float:hover{
+transform:scale(1.06) translateY(-4px);
+box-shadow:0 15px 35px rgba(37,211,102,.6);
+background:#20ba5a;
+}
+
+/* Elegant Premium Footer with Socials */
+footer {
+background:rgba(5,7,15,0.9);
+border-top:1px solid rgba(255,255,255,0.05);
+padding:50px 20px;
+text-align:center;
+position:relative;
+z-index:10;
+}
+
+.footer-links {
+margin:18px 0;
+display:flex;
+justify-content:center;
+gap:20px;
+}
+
+.footer-links a {
+color:#64748b;
+text-decoration:none;
+font-size:13px;
+transition:0.3s;
+cursor:pointer;
+}
+
+.footer-links a:hover {
+color:var(--accent);
+}
+
+.footer-socials {
+display:flex;
+justify-content:center;
+gap:24px;
+margin-bottom:24px;
+}
+
+.social-icon {
+color:#bdbdbd;
+font-size:20px;
+transition:.3s;
+width:45px;
+height:45px;
+border:1px solid rgba(255,255,255,0.08);
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(255,255,255,0.02);
+text-decoration:none;
+}
+
+.social-icon:hover {
+color:var(--accent);
+border-color:var(--accent);
+transform:translateY(-4px);
+box-shadow:0 0 15px rgba(212,175,55,0.2);
+}
+
+.footer-copyright {
+font-size:13px;
+color:#64748b;
+letter-spacing:1px;
+}
+
+/* Premium Glassmorphic Modal Windows for Legal Links */
+.modal-overlay {
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(5,7,15,0.85);
+backdrop-filter:blur(15px);
+z-index:2000;
+display:none;
+align-items:center;
+justify-content:center;
+opacity:0;
+transition:opacity 0.4s ease;
+}
+
+.modal-overlay.active {
+display:flex;
+opacity:1;
+}
+
+.modal-window {
+background:linear-gradient(145deg,rgba(15,23,42,0.95),rgba(5,7,15,0.98));
+border:1px solid var(--border);
+width:90%;
+max-width:750px;
+max-height:80vh;
+border-radius:24px;
+padding:40px;
+overflow-y:auto;
+position:relative;
+box-shadow:0 30px 70px rgba(0,0,0,0.8), 0 0 40px rgba(212,175,55,0.1);
+transform:translateY(20px);
+transition:transform 0.4s ease;
+}
+
+.modal-overlay.active .modal-window {
+transform:translateY(0);
+}
+
+.modal-close {
+position:absolute;
+top:24px;
+right:24px;
+font-size:24px;
+color:#64748b;
+cursor:pointer;
+transition:0.3s;
+}
+
+.modal-close:hover {
+color:var(--accent);
+}
+
+.modal-window h2 {
+font-family:'Playfair Display';
+color:var(--accent);
+font-size:32px;
+margin-bottom:20px;
+border-bottom:1px solid rgba(255,255,255,0.05);
+padding-bottom:12px;
+}
+
+.modal-window h3 {
+color:white;
+font-size:18px;
+margin:20px 0 8px 0;
+}
+
+.modal-window p, .modal-window ul {
+font-size:14px;
+color:#bdbdbd;
+line-height:1.8;
+margin-bottom:14px;
+}
+
+.modal-window ul {
+padding-left:20px;
+}
+
+@media(max-width:900px){
+.grid{grid-template-columns:1fr}
+.main-title{font-size:44px}
+header{padding:14px 24px; flex-direction:row; justify-content:space-between;}
+.hero{padding-top:260px}
+section{padding:90px 22px}
+.section-title{font-size:38px}
+.whatsapp-float {
+bottom:16px;
+right:16px;
+padding:12px 16px;
+}
+.whatsapp-float span { display:none; }
+
+/* Responsive Mobile Navigation Overlay Setup */
+.menu-btn { display:flex; }
+nav {
+position:fixed;
+top:0;
+right:-100%;
+width:75%;
+height:100vh;
+background:rgba(5,7,15,0.98);
+backdrop-filter:blur(20px);
+box-shadow:-10px 0 30px rgba(0,0,0,0.5);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:30px;
+transition:0.4s ease;
+z-index:1250;
+}
+
+nav a {
+margin-left:0;
+font-size:18px;
+}
+
+/* Toggle Interaction Rules via CSS Checkbox hack */
+#menu-toggle:checked ~ nav {
+right:0;
+}
+
+#menu-toggle:checked ~ .menu-btn span:nth-child(1) {
+transform:rotate(45deg) translate(6px, 6px);
+}
+
+#menu-toggle:checked ~ .menu-btn span:nth-child(2) {
+opacity:0;
+}
+
+#menu-toggle:checked ~ .menu-btn span:nth-child(3) {
+transform:rotate(-45deg) translate(6px, -6px);
+}
+}
+</style>
